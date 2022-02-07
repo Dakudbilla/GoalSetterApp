@@ -1,0 +1,17 @@
+{
+  "name": "goalsapp",
+  "version": "1.0.0",
+  "description": "A goal setting application",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "akuddev",
+  "license": "MIT",
+  "dependencies": {
+    "colors": "^1.4.0",
+    "dotenv": "^16.0.0",
+    "express": "^4.17.2",
+    "mongoose": "^6.2.0"
+  }
+}
