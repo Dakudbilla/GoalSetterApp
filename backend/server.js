@@ -1,10 +1,13 @@
 const express = require("express");
+
 const { errorHandler, notFound } = require("./middleware/errorMiddleware");
 require("dotenv").config();
 
-const app = express();
+const connectDB = require("./config/dbConfig");
 const port = process.env.PORT;
 
+const app = express();
+connectDB();
 //Use inbuilt Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
