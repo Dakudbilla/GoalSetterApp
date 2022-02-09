@@ -1,10 +1,17 @@
 const express = require("express");
-const dotenv = require("dotenv").config();
+const { errorHandler, notFound } = require("./middleware/errorMiddleware");
+require("dotenv").config();
 
 const app = express();
 const port = process.env.PORT;
 
+//Use inbuilt Middleware
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+
+//use custom middleware
 app.use("/api/goals", require("./routes/goalRoutes"));
+app.use(errorHandler, notFound);
 
 app.listen(port, () => {
   console.log(`Server started on port ${port}`);
