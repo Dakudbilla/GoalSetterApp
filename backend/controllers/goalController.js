@@ -1,4 +1,6 @@
 const asyncHandler = require("express-async-handler");
+const mongoose = require("mongoose");
+const Goal = require("../models/goalModel");
 
 /**
  * @desc Get All Goals
@@ -6,7 +8,8 @@ const asyncHandler = require("express-async-handler");
  * @access Private
  */
 const getGoals = asyncHandler(async (req, res) => {
-  res.status(200).json({ message: "Get Goals" });
+  const goals = await Goal.find();
+  res.status(200).json(goals);
 });
 
 /**
@@ -19,7 +22,11 @@ const createGoal = asyncHandler(async (req, res) => {
     res.status(400);
     throw new Error("Plead add a text field");
   }
-  res.status(201).json({ message: "Create Goal" });
+
+  const goal = await Goal.create({
+    text: req.body.text,
+  });
+  res.status(201).json(goal);
 });
 
 /**
@@ -28,7 +35,22 @@ const createGoal = asyncHandler(async (req, res) => {
  * @access Private
  */
 const updateGoal = asyncHandler(async (req, res) => {
-  res.status(200).json({ message: "update Goals" });
+  if (!mongoose.isValidObjectId(req.params["id"])) {
+    res.status(400);
+    throw new Error("Goal Does Not Exist");
+  }
+
+  const goal = await Goal.findById(req.params["id"]);
+  if (!goal) {
+    res.status(400);
+    throw new Error("Goal Does Not Exist");
+  }
+
+  const updatedGoal = await Goal.findByIdAndUpdate(req.params["id"], req.body, {
+    new: true,
+  });
+
+  res.status(200).json(updatedGoal);
 });
 
 /**
@@ -37,7 +59,18 @@ const updateGoal = asyncHandler(async (req, res) => {
  * @access Private
  */
 const deleteGoal = asyncHandler(async (req, res) => {
-  res.status(200).json({ message: "Delete Goals" });
+  if (!mongoose.isValidObjectId(req.params["id"])) {
+    res.status(400);
+    throw new Error("Goal Does Not Exist");
+  }
+
+  const goal = await Goal.findById(req.params["id"]);
+  if (!goal) {
+    res.status(400);
+    throw new Error("Goal Does Not Exist");
+  }
+  await goal.remove();
+  res.status(200).json({ message: "Delete Succesful" });
 });
 
 module.exports = {
