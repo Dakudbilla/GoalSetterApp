@@ -14,6 +14,7 @@ app.use(express.urlencoded({ extended: false }));
 
 //use custom middleware
 app.use("/api/goals", require("./routes/goalRoutes"));
+app.use("/api/users", require("./routes/userRoutes"));
 app.use(errorHandler, notFound);
 
 app.listen(port, () => {

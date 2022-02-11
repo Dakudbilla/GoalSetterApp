@@ -14,6 +14,7 @@ const userSchema = mongoose.Schema(
     password: {
       type: String,
       required: [true, "Please add a password"],
+      minLength: [6, "Expected atleast 6 characters got {VALUE}"],
     },
   },
   {
@@ -21,4 +22,4 @@ const userSchema = mongoose.Schema(
   }
 );
 
-module.exports = mongoose.Model("User", userSchema);
+module.exports = mongoose.model("User", userSchema);
