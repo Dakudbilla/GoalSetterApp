@@ -4,6 +4,7 @@ const asyncHandler = require("express-async-handler");
 const mongoose = require("mongoose");
 
 const User = require("../models/userModel");
+const generateJWTtoken = require("../config/generateJWTtoken");
 
 /**
  * @desc Register User
@@ -41,6 +42,7 @@ const registerUser = asyncHandler(async (req, res) => {
     _id: user._id,
     name: user.name,
     email: user.email,
+    token: generateJWTtoken(user._id),
   });
 });
 
@@ -60,6 +62,7 @@ const loginUser = asyncHandler(async (req, res) => {
       _id: user._id,
       name: user.name,
       email: user.email,
+      token: generateJWTtoken(user._id),
     });
   } else {
     res.status(400);
