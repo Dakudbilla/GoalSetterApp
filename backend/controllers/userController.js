@@ -5,7 +5,6 @@ const mongoose = require("mongoose");
 
 const User = require("../models/userModel");
 const generateJWTtoken = require("../config/generateJWTtoken");
-
 /**
  * @desc Register User
  * @route POST /api/users
@@ -73,10 +72,13 @@ const loginUser = asyncHandler(async (req, res) => {
 /**
  * @desc Get User Data
  * @route POST /api/users/me
- * @access PUBLIC
+ * @access PRIVATE
  */
 const getUser = asyncHandler(async (req, res) => {
-  res.json({ message: "User data" });
+  //since the user details have been attached to the reqest
+  //we can return it
+  const { _id, email, name } = req.user;
+  res.status(200).json({ id: _id, email, name });
 });
 
 module.exports = {
