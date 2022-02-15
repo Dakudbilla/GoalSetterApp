@@ -8,6 +8,8 @@ const Login = () => {
   const { email, password } = formData;
 
   const handleChange = (e) => {
+    e.preventDefault();
+
     setFormData((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value,
