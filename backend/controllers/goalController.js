@@ -8,7 +8,9 @@ const Goal = require("../models/goalModel");
  * @access Private
  */
 const getGoals = asyncHandler(async (req, res) => {
-  const goals = await Goal.find();
+  console.log("id");
+  const goals = await Goal.find({ user: req.user._id });
+  console.log(goals);
   res.status(200).json(goals);
 });
 
@@ -25,6 +27,7 @@ const createGoal = asyncHandler(async (req, res) => {
 
   const goal = await Goal.create({
     text: req.body.text,
+    user: req.user._id,
   });
   res.status(201).json(goal);
 });
@@ -46,6 +49,11 @@ const updateGoal = asyncHandler(async (req, res) => {
     throw new Error("Goal Does Not Exist");
   }
 
+  //ensure goal to be updated belongs to user
+  if (goal.user.toString() !== req.user._id.toString()) {
+    res.status(401);
+    throw new Error("User Not Authorized");
+  }
   const updatedGoal = await Goal.findByIdAndUpdate(req.params["id"], req.body, {
     new: true,
   });
@@ -69,8 +77,15 @@ const deleteGoal = asyncHandler(async (req, res) => {
     res.status(400);
     throw new Error("Goal Does Not Exist");
   }
+
+  //ensure goal to be updated belongs to user
+  if (goal.user.toString() !== req.user._id.toString()) {
+    res.status(401);
+    throw new Error("User Not Authorized");
+  }
+
   await goal.remove();
-  res.status(200).json({ message: "Delete Succesful" });
+  res.status(200).json({ id: req.params["id"] });
 });
 
 module.exports = {
