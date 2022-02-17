@@ -9,7 +9,7 @@ import Header from "./components/Header";
 
 const App = () => {
   return (
-    <>
+    <div>
       <Router>
         <div className="container">
           <Header />
@@ -21,7 +21,7 @@ const App = () => {
         </div>
       </Router>
       <ToastContainer />
-    </>
+    </div>
   );
 };
 
