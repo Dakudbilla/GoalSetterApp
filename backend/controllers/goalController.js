@@ -8,9 +8,7 @@ const Goal = require("../models/goalModel");
  * @access Private
  */
 const getGoals = asyncHandler(async (req, res) => {
-  console.log("id");
   const goals = await Goal.find({ user: req.user._id });
-  console.log(goals);
   res.status(200).json(goals);
 });
 
@@ -20,6 +18,7 @@ const getGoals = asyncHandler(async (req, res) => {
  * @access Private
  */
 const createGoal = asyncHandler(async (req, res) => {
+  console.log("hhhh");
   if (!req.body.text) {
     res.status(400);
     throw new Error("Plead add a text field");
@@ -85,7 +84,7 @@ const deleteGoal = asyncHandler(async (req, res) => {
   }
 
   await goal.remove();
-  res.status(200).json({ id: req.params["id"] });
+  res.status(200).json({ _id: req.params["id"] });
 });
 
 module.exports = {
