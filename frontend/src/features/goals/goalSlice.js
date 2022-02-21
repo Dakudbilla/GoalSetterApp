@@ -7,6 +7,7 @@ const initialState = {
   isSuccess: false,
   isLoading: false,
   message: "",
+  editGoal: "",
 };
 
 // add user goal
@@ -83,6 +84,9 @@ export const goalSlice = createSlice({
     reset: (state) => {
       state = initialState;
     },
+    editGoal: (state, action) => {
+      state.editGoal = action.payload;
+    },
   },
 
   extraReducers: (builder) => {
@@ -107,6 +111,8 @@ export const goalSlice = createSlice({
       .addCase(updateGoal.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
+        state.editGoal = "";
+        state.isError = false;
         //find goal by id and update with latest value
         state.goals.find((goal) => goal._id === action.payload._id).text =
           action.payload.text;
@@ -126,7 +132,6 @@ export const goalSlice = createSlice({
         const goalId = state.goals.find(
           (goal) => goal._id === action.payload.id
         );
-        console.log(goalId);
         state.goals.splice(goalId, 1);
       })
       .addCase(deleteGoal.rejected, (state, action) => {
@@ -150,6 +155,6 @@ export const goalSlice = createSlice({
   },
 });
 
-export const { reset } = goalSlice.actions;
+export const { reset, editGoal } = goalSlice.actions;
 
 export default goalSlice.reducer;

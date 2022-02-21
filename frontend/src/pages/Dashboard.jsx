@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
 
 import Goalform from "../components/GoalForm";
 import Goals from "../components/Goals";

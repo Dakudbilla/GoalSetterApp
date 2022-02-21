@@ -17,7 +17,7 @@ const getGoals = async () => {
 
 // update user goal
 const updateGoal = async ({ goal, goalId }) => {
-  const response = await axios.patch(API_URL + `/${goalId}`, goal);
+  const response = await axios.patch(API_URL + `/${goalId}`, { text: goal });
 
   return response.data;
 };

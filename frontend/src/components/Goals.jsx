@@ -25,7 +25,7 @@ const Goals = () => {
     return <Spinner />;
   }
   return (
-    <div className="goal-container">
+    <div className="goals-container">
       {goals.map((goal) => (
         <GoalItem removeGoal={removeGoal} key={goal._id} goal={goal} />
       ))}
