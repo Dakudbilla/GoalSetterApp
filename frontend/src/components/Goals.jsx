@@ -11,12 +11,15 @@ const Goals = () => {
   );
   const dispatch = useDispatch();
 
+  const removeGoal = (id) => {
+    dispatch(deleteGoal(id));
+  };
   useEffect(() => {
     if (isError) {
       toast.error(message);
     }
     dispatch(getGoals());
-  }, [isError, message]);
+  }, [dispatch, isError, message]);
 
   if (isLoading) {
     return <Spinner />;
@@ -24,7 +27,7 @@ const Goals = () => {
   return (
     <div className="goal-container">
       {goals.map((goal) => (
-        <GoalItem deleteGoal={deleteGoal} key={goal._id} goal={goal} />
+        <GoalItem removeGoal={removeGoal} key={goal._id} goal={goal} />
       ))}
     </div>
   );

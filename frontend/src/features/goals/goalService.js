@@ -2,21 +2,6 @@ import axios from "axios";
 
 const API_URL = "/api/goals/";
 
-// // Get user from localStorage
-const user = JSON.parse(localStorage.getItem("user"));
-
-// //set axios header
-// let headers;
-// if (user) {
-//   headers = {
-//     headers: {
-//       Authorization: "Bearer " + user.token,
-//     },
-//   };
-// } else {
-//   headers = {};
-// }
-
 // add user goal
 const addGoal = async (goal) => {
   const response = await axios.post(API_URL, { text: goal });

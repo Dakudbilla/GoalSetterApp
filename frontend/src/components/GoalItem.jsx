@@ -1,11 +1,8 @@
-import { useDispatch } from "react-redux";
 import moment from "moment";
 import { FaEdit } from "react-icons/fa";
 import { AiOutlineDelete } from "react-icons/ai";
 
-function GoalItem({ goal, deleteGoal }) {
-  const dispatch = useDispatch();
-
+function GoalItem({ goal, removeGoal }) {
   return (
     <>
       <div className="sub-container">
@@ -16,10 +13,7 @@ function GoalItem({ goal, deleteGoal }) {
         <div className="goal-edit">
           <FaEdit /> edit
         </div>
-        <div
-          className="goal-delete"
-          onClick={() => dispatch(deleteGoal(goal._id))}
-        >
+        <div className="goal-delete" onClick={() => removeGoal(goal._id)}>
           <AiOutlineDelete /> delete
         </div>
       </div>

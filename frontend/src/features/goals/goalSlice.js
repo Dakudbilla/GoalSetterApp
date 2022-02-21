@@ -93,6 +93,7 @@ export const goalSlice = createSlice({
       .addCase(addGoal.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
+        state.isError = false;
         state.goals.push(action.payload);
       })
       .addCase(addGoal.rejected, (state, action) => {
@@ -121,9 +122,12 @@ export const goalSlice = createSlice({
       .addCase(deleteGoal.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
-        state.goals = state.goals.filter(
-          (goal) => goal._id !== action.payload.id
+        state.isError = false;
+        const goalId = state.goals.find(
+          (goal) => goal._id === action.payload.id
         );
+        console.log(goalId);
+        state.goals.splice(goalId, 1);
       })
       .addCase(deleteGoal.rejected, (state, action) => {
         state.isLoading = false;
