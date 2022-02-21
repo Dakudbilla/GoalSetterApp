@@ -1,17 +1,14 @@
-import { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+
 import Goalform from "../components/GoalForm";
-import { getGoals } from "../features/goals/goalSlice";
+import Goals from "../components/Goals";
+
+import setAuthToken from "../setAuthHeader";
 
 const Dashboard = () => {
   const { user } = useSelector((state) => state.auth);
-  const dispatch = useDispatch();
-  const { goals, isLoading, isError, isSuccess, message } = useSelector(
-    (state) => state.goals
-  );
-  useEffect(() => {
-    dispatch(getGoals());
-  }, []);
+  setAuthToken(user.token);
+
   return (
     <>
       <section className="heading">
@@ -19,6 +16,7 @@ const Dashboard = () => {
       </section>
 
       <Goalform />
+      <Goals />
     </>
   );
 };

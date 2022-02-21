@@ -1,17 +1,29 @@
 import { useDispatch } from "react-redux";
-import { deleteGoal } from "../features/goals/goalSlice";
+import moment from "moment";
+import { FaEdit } from "react-icons/fa";
+import { AiOutlineDelete } from "react-icons/ai";
 
-function GoalItem({ goal }) {
+function GoalItem({ goal, deleteGoal }) {
   const dispatch = useDispatch();
 
   return (
-    <div className="goal">
-      <div>{new Date(goal.createdAt).toLocaleString("en-US")}</div>
-      <h2>{goal.text}</h2>
-      <button onClick={() => dispatch(deleteGoal(goal._id))} className="close">
-        X
-      </button>
-    </div>
+    <>
+      <div className="sub-container">
+        <div className="goal-text">{goal.text}</div>
+        <div className="createdat">{moment().fromNow(goal.createdAt)}</div>
+      </div>
+      <div className="sub-container">
+        <div className="goal-edit">
+          <FaEdit /> edit
+        </div>
+        <div
+          className="goal-delete"
+          onClick={() => dispatch(deleteGoal(goal._id))}
+        >
+          <AiOutlineDelete /> delete
+        </div>
+      </div>
+    </>
   );
 }
 
