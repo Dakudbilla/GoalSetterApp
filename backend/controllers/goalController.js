@@ -18,7 +18,6 @@ const getGoals = asyncHandler(async (req, res) => {
  * @access Private
  */
 const createGoal = asyncHandler(async (req, res) => {
-  console.log("hhhh");
   if (!req.body.text) {
     res.status(400);
     throw new Error("Plead add a text field");

@@ -14,7 +14,7 @@ function GoalItem({ goal, removeGoal }) {
       <div className="goal-container">
         <div className="sub-container">
           <div className="goal-text">{goal.text}</div>
-          <div className="createdat">{moment().fromNow(goal.createdAt)}</div>
+          <div className="createdat">{moment(goal.createdAt).fromNow()}</div>
         </div>
         <div className="sub-container">
           <div className="goal-edit" onClick={handleEdit}>

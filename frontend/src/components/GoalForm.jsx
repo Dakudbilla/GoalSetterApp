@@ -23,6 +23,7 @@ const Goalform = () => {
   useEffect(() => {
     const getGoalEdited = () => {
       if (editGoal) {
+        // eslint-disable-next-line react-hooks/exhaustive-deps
         goalRef = goals.find((goal) => goal._id === editGoal);
         setText(goalRef.text);
       }
